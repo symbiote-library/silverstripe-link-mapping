@@ -58,9 +58,16 @@ class LinkMapping extends DataObject {
 		$fields->removeByName('RedirectLink');
 		$fields->removeByName('RedirectPageID');
 
+		$fields->insertBefore(new HeaderField(
+			'MappedLinkHeader', $this->fieldLabel('MappedLinkHeader')
+		), 'MappedLink');
+
 		$pageLabel = $this->fieldLabel('RedirectToPage');
 		$linkLabel = $this->fieldLabel('RedirectToLink');
 
+		$fields->addFieldToTab('Root.Main', new HeaderField(
+			'RedirectToHeader', $this->fieldLabel('RedirectToHeader')
+		));
 		$fields->addFieldToTab('Root.Main', new SelectionGroup('RedirectType', array(
 			"Page//$pageLabel" => new TreeDropdownField('RedirectPageID', '', 'Page'),
 			"Link//$linkLabel" => new TextField('RedirectLink', '')
@@ -71,9 +78,11 @@ class LinkMapping extends DataObject {
 
 	public function fieldLabels() {
 		return parent::fieldLabels() + array(
-			'RedirectionType' => _t('LinkMapping.REDIRECTIONTYPE', 'Redirection type'),
-			'RedirectToPage'  => _t('LinkMapping.REDIRTOPAGE', 'Redirect to a page'),
-			'RedirectToLink'  => _t('LinkMapping.REDIRTOLINK', 'Redirect to a link')
+			'MappedLinkHeader' => _t('LinkMapping.MAPPEDLINK', 'Mapped Link'),
+			'RedirectToHeader' => _t('LinkMapping.REDIRECTTO', 'Redirect To'),
+			'RedirectionType'  => _t('LinkMapping.REDIRECTIONTYPE', 'Redirection type'),
+			'RedirectToPage'   => _t('LinkMapping.REDIRTOPAGE', 'Redirect to a page'),
+			'RedirectToLink'   => _t('LinkMapping.REDIRTOLINK', 'Redirect to a link')
 		);
 	}
 
