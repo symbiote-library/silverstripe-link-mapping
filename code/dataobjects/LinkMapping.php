@@ -76,8 +76,8 @@ class LinkMapping extends DataObject {
 		return $fields;
 	}
 
-	public function fieldLabels() {
-		return parent::fieldLabels() + array(
+	public function fieldLabels($includerelations = true) {
+		return parent::fieldLabels($includerelations) + array(
 			'MappedLinkHeader' => _t('LinkMapping.MAPPEDLINK', 'Mapped Link'),
 			'RedirectToHeader' => _t('LinkMapping.REDIRECTTO', 'Redirect To'),
 			'RedirectionType'  => _t('LinkMapping.REDIRECTIONTYPE', 'Redirection type'),
