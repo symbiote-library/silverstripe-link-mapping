@@ -36,9 +36,30 @@ class LinkMapping extends DataObject {
 	 * @return LinkMapping
 	 */
 	public static function get_by_link($link) {
-		return DataObject::get_one('LinkMapping', sprintf(
-			'"MappedLink" = \'%s\'', Convert::raw2sql(self::unify_link($link))
-		));
+		$link = Convert::raw2sql(self::unify_link($link));
+
+		// check for an exact match
+		$match = LinkMapping::get()->filter('MappedLink', $link)->first();
+		if($match) return $match;
+	
+		// check for a match with the same get vars in a different order
+		if(strpos($link, '?')){
+			$linkParts 		= explode('?', $link);
+			$url 			= $linkParts[0];
+			$matches		= LinkMapping::get()->where("MappedLink like '$url%'");
+			parse_str($linkParts[1], $queryParams);			
+
+			if($matches->count()){
+				foreach ($matches as $match) {
+					$matchQueryString = explode('?', $match->MappedLink);
+					parse_str($matchQueryString[1], $matchParams); 
+					if($matchParams == $queryParams){
+						return $match;
+					}		
+				}
+			}
+
+		}
 	}
 
 	/**
@@ -48,7 +69,7 @@ class LinkMapping extends DataObject {
 	 * @return string
 	 */
 	public static function unify_link($link) {
-		return strtolower(trim(Director::makeRelative(strtok($link, '?')), '/'));
+		return strtolower(trim(trim(Director::makeRelative($link), '/'), '?'));
 	}
 
 	public function getCMSFields() {

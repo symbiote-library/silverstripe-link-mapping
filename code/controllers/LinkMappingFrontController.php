@@ -18,7 +18,9 @@ class LinkMappingFrontController extends ModelAsController {
 		}
 
 		// Find page by link, regardless of current locale settings
-		Translatable::disable_locale_filter();
+		$translatable = class_exists('Translatable');
+		if($translatable) Translatable::disable_locale_filter();	
+
 		$sitetree = DataObject::get_one(
 			'SiteTree',
 			sprintf(
@@ -27,12 +29,17 @@ class LinkMappingFrontController extends ModelAsController {
 				(SiteTree::nested_urls() ? 'AND "ParentID" = 0' : null)
 			)
 		);
-		Translatable::enable_locale_filter();
 
-		if(!$sitetree) {
+		if($translatable) Translatable::enable_locale_filter();
+
+		if(!$sitetree) {	
 			// first check for a link mapping to direct away to.
-			$link = $request->getURL();
-			$map  = LinkMapping::get_by_link($link);
+			$link = $request->getURL();//
+			if(count($request->getVars()) > 1){
+				$link = $link . str_replace('url=' . $request->requestVar('url') . '&', '?', $_SERVER['QUERY_STRING']);
+			}
+
+			$map = LinkMapping::get_by_link($link);
 
 			if ($map) {
 				$this->response = new SS_HTTPResponse();
