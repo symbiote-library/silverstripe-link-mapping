@@ -7,7 +7,7 @@ user is redirected. This is useful for things like legacy page redirection.
 
 Maintainer Contacts
 -------------------
-*  Andrew Short (<andrew@silverstripe.com.au>)
+*  Marcus Nyeholt (<marcus@silverstripe.com.au>)
 
 Requirements
 ------------
