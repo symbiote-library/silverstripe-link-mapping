@@ -1,5 +1,8 @@
-SilverStripe Link Mapping Module
-================================
+> ## **IMPORTANT**
+
+> This has been superceded by the [misdirection](https://github.com/nglasl/silverstripe-misdirection/) module.
+
+# SilverStripe Link Mapping Module
 
 This is a module to allow you to set up simple link mappings. When a requested
 page is not found, the mapping table is checked and if a mapping exists the
