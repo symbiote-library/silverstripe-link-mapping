@@ -1,6 +1,6 @@
 > ## **IMPORTANT**
 
-> This has been superceded by the [misdirection](https://github.com/nglasl/silverstripe-misdirection/) module.
+> This has been superceded by the [misdirection](https://github.com/nglasl/silverstripe-misdirection/) module, and is no longer maintained.
 
 # SilverStripe Link Mapping Module
 
