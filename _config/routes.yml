@@ -1,7 +1,0 @@
----
-Name: modelascontrollerroutes
-After: 'framework/routes#rootroutes'
----
-Director:
-  rules:
-    '$URLSegment!//$Action/$ID/$OtherID': 'LinkMappingFrontController'
