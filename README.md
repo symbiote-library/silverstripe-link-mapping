@@ -10,7 +10,7 @@ user is redirected. This is useful for things like legacy page redirection.
 
 Maintainer Contacts
 -------------------
-*  Marcus Nyeholt (<marcus@silverstripe.com.au>)
+*  Marcus Nyeholt (<marcus@symbiote.com.au>)
 
 Requirements
 ------------
